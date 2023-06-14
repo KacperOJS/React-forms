@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Employee from './components/Employee';
 import './Main.css';
 import { v4 as uuidv4} from 'uuid';
+import AddEmployee from './components/AddEmployee';
 
 function App() {
 	const [info,setInfo]=useState('');
@@ -46,6 +47,15 @@ function App() {
 
 		]
 	)
+	function NewEmployee(name,role,img){
+		const NewEmployee={
+			id: uuidv4(),
+			name:name,
+			role:role,
+			img:img,
+		}
+		SetEmployes([...employees,NewEmployee])
+	}
 	function updateEmployee(id,newName,newRole){
 		console.log('updateEmployee on app.js');
 		const updateEmployees = employees.map((employee)=>{
@@ -77,6 +87,7 @@ function App() {
 			})}
 		
 	 	</div>
+		<AddEmployee NewEmployee={NewEmployee}/>
 	 </div>
 	</>
   );

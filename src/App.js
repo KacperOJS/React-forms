@@ -3,6 +3,8 @@ import Employee from './components/Employee';
 import './Main.css';
 import { v4 as uuidv4} from 'uuid';
 import AddEmployee from './components/AddEmployee';
+import EditEmplooyee from './components/EditEmployee';
+import Header from'./components/Header';
 
 function App() {
 	const [info,setInfo]=useState('');
@@ -70,19 +72,26 @@ function App() {
 
 	<>
 	<div className='App'>
+		<Header/>
 		<input type='text' onChange={(e)=>{
 		setInfo(e.target.value);
 		}}
 		/>
 	 	<div className='flex flex-wrap justify-center'>
 			{employees.map((employee,id)=>{
+			const EditEmplooye=(<EditEmplooyee 
+			id={employee.id}
+			name={employee.name} 
+			role={employee.role} 
+			updateEmployee={updateEmployee}/>
+			);
 				return <Employee
 				key={employee.id}
 				id={employee.id}
 				name={employee.name} 
 				role={employee.role} 
 				img={employee.img}
-				updateEmployee={updateEmployee}
+				EditEmplooyee={EditEmplooye}
 				/>
 			})}
 		

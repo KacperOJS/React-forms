@@ -1,5 +1,4 @@
 import React from 'react'
-import './Employee.css';
 import EditEmplooyee from './EditEmployee';
 const Employee = (props) => {
   return (

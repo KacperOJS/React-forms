@@ -4,8 +4,11 @@ const Dictionary = () => {
 	const[word,setWord]=useState('');
 	const[word2,setWord2]=useState('');
 	useEffect(()=>{
-		console.log('state Updated',word +' ' + word2);
+		console.log('state Updated'+word);
 	},[word]);
+	useEffect(()=>{
+		console.log('state Updated'+word2);
+	},[word2]);
 	//[tylko odpala co jest w tablicy]
   return (
 		<>

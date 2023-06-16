@@ -19,7 +19,6 @@ function App() {
 			<Routes>
 				<Route path='/employees' element={<Employees/>}/>
 				<Route path='/' element='Default Page'/>
-				<Route path='/definition' element={<Definition/>}/>
 				<Route path='/definition/:search' element={<Definition/>}/>
 				<Route path='/dictionary' element={<Dictionary/>}/>
 				<Route path='/customers' element={<Customers/>}/>

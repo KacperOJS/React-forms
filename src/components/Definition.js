@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4, v4} from 'uuid';
+import Dictionary from "./Dictionary";
 
 export default function Definition(){
 	const [word,setWord] = useState();
@@ -35,18 +36,16 @@ export default function Definition(){
 	  }
 	return (
 		<>
-
 			{word ? word.map((meaning)=>{
 				return(
 					<>
-					<h1>Welcome in Definition</h1>
 					<p key={v4()}>{meaning.definitions[0].definition}</p>
 					</>
 				)
 				
 				
 			}): null}
-			
+			<Dictionary/>
 		</>
 	)
 }

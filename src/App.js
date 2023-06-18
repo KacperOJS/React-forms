@@ -10,6 +10,7 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Customers from './pages/Customers';
 import Dictionary from './components/Dictionary';
 import Definition from './components/Definition';
+import Customer from './pages/Customer';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
 				<Route path='/definition/:search' element={<Definition/>}/>
 				<Route path='/dictionary' element={<Dictionary/>}/>
 				<Route path='/customers' element={<Customers/>}/>
+				<Route path='/customers/:id' element={<Customer/>}/>
 			</Routes>
 	
 		{/* <Employees/> */}

@@ -10,7 +10,7 @@ export default function Customer(){
 		const url = 'http://localhost:8000/api/customers/' + id;
 		fetch(url)
 		.then((res)=>{
-			if(res.status ===404){
+			if(res.status === 404){
 				navigate('/404');
 			}
 
@@ -25,6 +25,21 @@ export default function Customer(){
 		// 	setError(true);
 		// })
 	},[])
+	function deleteCustomer(){
+		const url ='http://localhost:8000/api/customers/' + id;
+		console.log('deleting');
+		fetch(url,{method:'DELETE',headers:{
+			'Content-type':'application/json',
+		}}).then(res =>{
+			if(!res.ok){
+				throw new Error('Something went wrong')
+			}
+			navigate('/customers')
+		})
+		.catch((e)=>{
+			console.error(e);
+		})
+	}
 	// if(error){
 	// 	return( 
 	// 		<>
@@ -42,6 +57,8 @@ export default function Customer(){
 				<p>{customer.industry}</p>
 			</div> 
 			: null }
+			<button onClick={deleteCustomer}>Delete</button> 
+			<br />
 			<Link to="/customers">Go back</Link>
 		</>
 	)

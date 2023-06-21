@@ -17,6 +17,9 @@ export default function Customers(){
 			setError(true)
 		})
 	},[]);
+	function deleteCustomer(){
+		console.log('deleting');
+	}
 	if(error){
 		return <p>Something went Wrong With API</p>
 	}
@@ -25,6 +28,9 @@ export default function Customers(){
 		{customers ? customers.map((customer,idx)=>{
 			return <p key={idx}><Link to={'/customers/'+customer.id} >{customer.name}</Link></p>
 		}): null }
+		<button onClick={deleteCustomer}>Delete</button>
+		<br />
+		<Link to="/customers">Go Back</Link>
 		</>
 	)
 }

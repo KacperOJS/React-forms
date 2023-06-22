@@ -1,5 +1,6 @@
 import { useEffect,useState } from "react"
 import { Link } from "react-router-dom";
+import AddCustomer from "../components/AddCustomer";
 
 export default function Customers(){
 	const [customers,SetCustomers]=useState();
@@ -17,6 +18,25 @@ export default function Customers(){
 			setError(true)
 		})
 	},[]);
+	function newcustomer(name,industry){
+		const data = {name:name,industry:industry};
+		fetch('http://localhost:8000/api/customers/',{
+			method:'POST',
+			headers:{
+				'Content-Type':'application/json'
+			},
+			body: JSON.stringify(data),
+		}).then(res =>{
+			if(!res.ok){
+				throw new Error('Something went Wrong');
+			}
+			return res.json()
+		}).then(data=>{
+
+		}).catch(e=>{
+			console.error(e);
+		})
+	}
 	function deleteCustomer(){
 		console.log('deleting');
 	}
@@ -31,6 +51,8 @@ export default function Customers(){
 		<button onClick={deleteCustomer}>Delete</button>
 		<br />
 		<Link to="/customers">Go Back</Link>
+		
+		<AddCustomer newcustomer ={newcustomer}/>
 		</>
 	)
 }

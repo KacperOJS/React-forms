@@ -5,6 +5,10 @@ import AddCustomer from "../components/AddCustomer";
 export default function Customers(){
 	const [customers,SetCustomers]=useState();
 	const [error, setError] = useState(false);
+	const [show,setShow] = useState(false);
+	function toggleshow(){
+		setShow(!show)
+	}
 	useEffect(()=>{
 	
 		fetch('http://localhost:8000/api/customers/')
@@ -32,7 +36,8 @@ export default function Customers(){
 			}
 			return res.json()
 		}).then(data=>{
-
+			toggleshow()
+			SetCustomers([...customers , data.customer])
 		}).catch(e=>{
 			console.error(e);
 		})
@@ -52,7 +57,7 @@ export default function Customers(){
 		<br />
 		<Link to="/customers">Go Back</Link>
 		
-		<AddCustomer newcustomer ={newcustomer}/>
+		<AddCustomer newcustomer ={newcustomer} show={show} toggleshow={toggleshow}/>
 		</>
 	)
 }

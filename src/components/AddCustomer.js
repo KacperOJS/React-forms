@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 
 
 function AddCustomer(props) {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(props.show);
 
   const [name, setName] = useState('');
   const [industry, setIndustry] = useState('');
@@ -16,13 +16,13 @@ function AddCustomer(props) {
 
   return (
     <>
-	<button onClick={handleShow} 
+	<button onClick={props.toggleshow} 
 	className="block translate-y-[50px] mx-auto px-4 py-1 text-sm text-white font-semibold rounded-full border bg-purple-600 border-purple-200 hover:text-white hover:bg-purple-800 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
 		Add customer
 	</button>
      
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={props.show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Create New customer</Modal.Title>
         </Modal.Header>
@@ -76,7 +76,7 @@ function AddCustomer(props) {
 		</Modal.Body>
         <Modal.Footer>
 
-		  <button className='bg-slate-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' onClick={handleClose}>Close</button>
+		  <button className='bg-slate-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' onClick={props.toggleshow}>Close</button>
 		  <button 
 			onClick={handleClose}
 			className='bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded' form='editmodal'>Add

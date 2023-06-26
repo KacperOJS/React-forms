@@ -5,7 +5,13 @@ export default function Customer(){
 	const [customer,setCustomer]=useState(); 
 	const [error,setError]=useState(false); 
 	const navigate = useNavigate();
+	const [tempCustomer,SettempCustomer]=useState();
 	const { id }=useParams();
+	const [change,setChange]=useState(false);
+	useEffect(()=>{
+		console.log('customer',customer);
+		console.log('customer',tempCustomer);
+	});
 	useEffect(()=>{
 		const url = 'http://localhost:8000/api/customers/' + id;
 		fetch(url)
@@ -19,12 +25,44 @@ export default function Customer(){
 		.then(data =>{
 			console.log(data);
 			setCustomer(data.customer);
+			SettempCustomer(data.customer);
 		})
 		// .catch((error)=>{
 		// 	console.error(error);
 		// 	setError(true);
 		// })
 	},[])
+	function updateCustomer(){
+		const url = 'http://localhost:8000/api/customers/' + id;
+		fetch(url,{ method:'POST',
+		headers:{
+			'Content-type':'application/json',
+		},
+	body:JSON.stringify(tempCustomer)
+	}).then(res => {
+			return res.json();
+		})
+		.then(data =>{
+			setCustomer(data.customer)
+			setChange(false)
+			console.log(data);
+		})
+	}
+	useEffect(()=>{
+		if(!customer) return;
+		if(!tempCustomer) return;
+		let equal = true;
+		if(customer.name !== tempCustomer.name){
+		   equal=false
+		}
+		if(customer.industry !== tempCustomer.industry){
+		   equal=false
+		}
+		if(equal){
+		   setChange(false);
+		}
+	},[])
+	
 	function deleteCustomer(){
 		const url ='http://localhost:8000/api/customers/' + id;
 		console.log('deleting');
@@ -52,9 +90,27 @@ export default function Customer(){
 		<>
 			{customer ? 
 			<div>
-				<p>{customer.id}</p>
-				<p>{customer.name}</p>
-				<p>{customer.industry}</p>
+				<p  className="m-2 block px-2">ID: {tempCustomer.id}</p>
+				<input onChange={(e)=>{
+					setChange(true);
+					SettempCustomer({...tempCustomer,name:e.target.value})
+				
+				}} className="m-2 block px-2" type="text" value={tempCustomer.name}/>
+				<input onChange={(e)=>{
+					setChange(true);
+					SettempCustomer({...tempCustomer,industry:e.target.value})
+				
+				}} className="m-2 block px-2" type="text" value={tempCustomer.industry}/>
+				{change ? (
+				<>
+				<button onClick={(e)=>{
+					SettempCustomer({...customer})
+					setChange(false)
+				}}>Cancel</button> <button
+				onClick={updateCustomer}
+				> Save</button>
+				</>
+				): null}
 			</div> 
 			: null }
 			<button onClick={deleteCustomer}>Delete</button> 

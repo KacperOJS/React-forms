@@ -111,9 +111,10 @@ export default function Customer(){
 				> Save</button>
 				</>
 				): null}
+		
+			<button onClick={deleteCustomer}>Delete</button> 
 			</div> 
 			: null }
-			<button onClick={deleteCustomer}>Delete</button> 
 			<br />
 			<Link to="/customers">Go back</Link>
 		</>

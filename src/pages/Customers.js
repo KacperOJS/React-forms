@@ -1,18 +1,27 @@
 import { useEffect,useState } from "react"
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import AddCustomer from "../components/AddCustomer";
 
 export default function Customers(){
 	const [customers,SetCustomers]=useState();
 	const [error, setError] = useState(false);
 	const [show,setShow] = useState(false);
+
 	function toggleshow(){
 		setShow(!show)
 	}
+
+	const navigate = useNavigate();
+
 	useEffect(()=>{
-	
+
 		fetch('http://localhost:8000/api/customers/')
-		.then(res =>res.json())
+		.then(res =>{
+			if(res.status ===401){
+				navigate('/login'); 
+			}
+			return res.json()
+		})
 		.then(data => {
 			console.log(data)
 			SetCustomers(data.customers)

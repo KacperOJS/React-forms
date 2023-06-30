@@ -12,26 +12,35 @@ export default function Customer(){
 		console.log('customer',customer);
 		console.log('customer',tempCustomer);
 	});
-	useEffect(()=>{
+	useEffect(() => {
 		const url = 'http://localhost:8000/api/customers/' + id;
-		fetch(url)
-		.then((res)=>{
-			if(res.status === 404){
-				navigate('/404');
+		fetch(url , {
+			headers:{
+				'Content-Type':'application/json',
+				Authorization: 'Bearer ' + localStorage.getItem('access'),
 			}
-
-			return res.json();
 		})
-		.then(data =>{
+		  .then((res) => {
+			if (res.status === 404) {
+			  navigate('/404');
+			} else if (res.status === 401) {
+			  navigate('/login');
+			} else if (!res.ok) {
+			  throw new Error('Something went wrong try again');
+			}
+			return res.json();
+		  })
+		  .then((data) => {
 			console.log(data);
 			setCustomer(data.customer);
 			SettempCustomer(data.customer);
-		})
-		// .catch((error)=>{
-		// 	console.error(error);
-		// 	setError(true);
-		// })
-	},[])
+		  })
+		  .catch((error) => {
+			console.error(error);
+			setError(true);
+		  });
+	  }, []);
+	  
 	function updateCustomer(){
 		const url = 'http://localhost:8000/api/customers/' + id;
 		fetch(url,{ method:'POST',

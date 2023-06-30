@@ -29,8 +29,8 @@ export default function Login() {
             })
             .then((data) => {
 				console.log(data);
-                // localStorage.setItem('access', data.access);
-                // localStorage.setItem('refresh', data.refresh);
+                localStorage.setItem('access', data.access);
+                localStorage.setItem('refresh', data.refresh);
                 // // setLoggedIn(true);
                 // navigate(
                 //     location?.state?.previousUrl

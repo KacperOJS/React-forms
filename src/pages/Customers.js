@@ -15,15 +15,20 @@ export default function Customers(){
 
 	useEffect(()=>{
 
-		fetch('http://localhost:8000/api/customers/')
+		fetch('http://localhost:8000/api/customers/',{
+			headers:{
+				'Content-Type': 'application/json',
+				Authorization:'Bearer ' + localStorage.getItem('access')
+			},
+
+		})
 		.then(res =>{
-			if(res.status ===401){
+			if(res.status===401){
 				navigate('/login'); 
 			}
 			return res.json()
 		})
 		.then(data => {
-			console.log(data)
 			SetCustomers(data.customers)
 		})
 		.catch(error=>{

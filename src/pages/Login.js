@@ -4,7 +4,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { LoginContext } from '../App';
 
 export default function Login() {
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useContext(LoginContext);
+	
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 

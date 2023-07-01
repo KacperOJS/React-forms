@@ -2,7 +2,8 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { NavLink } from 'react-router-dom'
-
+import { useContext } from 'react'
+import { LoginContext } from '../App'
 const navigation = [
   { name: 'Employees', href: '/employees'},
   { name: 'Customers', href: '/customers'},
@@ -15,6 +16,7 @@ function classNames(...classes) {
 }
 
 export default function Example(props) {
+	const {loggedIn} = useContext(LoginContext);
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (

@@ -1,12 +1,13 @@
-import { useEffect,useState } from "react"
+import { useContext, useEffect,useState } from "react"
 import { Link,useLocation,useNavigate } from "react-router-dom";
 import AddCustomer from "../components/AddCustomer";
+import { LoginContext } from "../App";
 
 export default function Customers(){
 	const [customers,SetCustomers]=useState();
 	const [error, setError] = useState(false);
 	const [show,setShow] = useState(false);
-	
+	const {loggedIn,setLoggedIn} = useContext(LoginContext);
 
 	function toggleshow(){
 		setShow(!show)
@@ -25,6 +26,7 @@ export default function Customers(){
 		})
 		.then(res =>{
 			if(res.status===401){
+				setLoggedIn(false);
 				navigate('/login',{state:{previousUrl:location.pathname}}); 
 			}
 			return res.json()

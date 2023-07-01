@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { LoginContext } from '../App';
 
 export default function Login() {
-    // const [loggedIn, setLoggedIn] = useContext(LoginContext);
+    const [loggedIn, setLoggedIn] = useState(false);
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 
@@ -31,12 +31,12 @@ export default function Login() {
 				console.log(data);
                 localStorage.setItem('access', data.access);
                 localStorage.setItem('refresh', data.refresh);
-                // // setLoggedIn(true);
-                // navigate(
-                //     location?.state?.previousUrl
-                //         ? location.state.previousUrl
-                //         : '/customers'
-                // );
+				setLoggedIn(true);
+                navigate(
+                    location?.state?.previousUrl
+                        ? location.state.previousUrl
+                        : '/customers'
+                );
             });
     }
 

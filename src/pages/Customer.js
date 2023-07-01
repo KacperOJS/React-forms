@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 export default function Customer(){
 	const [customer,setCustomer]=useState(); 
@@ -8,6 +8,7 @@ export default function Customer(){
 	const [tempCustomer,SettempCustomer]=useState();
 	const { id }=useParams();
 	const [change,setChange]=useState(false);
+	const location = useLocation();
 	useEffect(()=>{
 		console.log('customer',customer);
 		console.log('customer',tempCustomer);
@@ -18,7 +19,7 @@ export default function Customer(){
 			headers:{
 				'Content-Type':'application/json',
 				Authorization: 'Bearer ' + localStorage.getItem('access'),
-			}
+			},
 		})
 		  .then((res) => {
 			if (res.status === 404) {
@@ -45,10 +46,15 @@ export default function Customer(){
 		const url = 'http://localhost:8000/api/customers/' + id;
 		fetch(url,{ method:'POST',
 		headers:{
-			'Content-type':'application/json',
+			'Content-Type':'application/json',
+				Authorization: 'Bearer ' + localStorage.getItem('access'),
 		},
 	body:JSON.stringify(tempCustomer)
 	}).then(res => {
+		if(res.status === 401) {
+			navigate('/login');
+		  } 
+		  if(!res.ok) throw new Error('something went wrong2');
 			return res.json();
 		})
 		.then(data =>{
@@ -75,9 +81,15 @@ export default function Customer(){
 	function deleteCustomer(){
 		const url ='http://localhost:8000/api/customers/' + id;
 		console.log('deleting');
-		fetch(url,{method:'DELETE',headers:{
-			'Content-type':'application/json',
-		}}).then(res =>{
+		fetch(url,{method:'DELETE',
+		headers:{
+			'Content-Type':'application/json',
+			Authorization: 'Bearer ' + localStorage.getItem('access'),
+		},
+	}).then(res =>{
+			if(res.status === 401) {
+				navigate('/login');
+			  } 
 			if(!res.ok){
 				throw new Error('Something went wrong')
 			}

@@ -1,16 +1,17 @@
 import { useEffect,useState } from "react"
-import { Link,useNavigate } from "react-router-dom";
+import { Link,useLocation,useNavigate } from "react-router-dom";
 import AddCustomer from "../components/AddCustomer";
 
 export default function Customers(){
 	const [customers,SetCustomers]=useState();
 	const [error, setError] = useState(false);
 	const [show,setShow] = useState(false);
+	
 
 	function toggleshow(){
 		setShow(!show)
 	}
-
+	const location = useLocation();
 	const navigate = useNavigate();
 
 	useEffect(()=>{
@@ -24,7 +25,7 @@ export default function Customers(){
 		})
 		.then(res =>{
 			if(res.status===401){
-				navigate('/login'); 
+				navigate('/login',{state:{previousUrl:location.pathname}}); 
 			}
 			return res.json()
 		})

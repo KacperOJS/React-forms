@@ -17,7 +17,7 @@ export default function Customers(){
 
 	useEffect(()=>{
 
-		fetch('http://localhost:8000/api/customers/',{
+		fetch('http://localhost:8000/api/customers/' ,{
 			headers:{
 				'Content-Type': 'application/json',
 				Authorization:'Bearer ' + localStorage.getItem('access')

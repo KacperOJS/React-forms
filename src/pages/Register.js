@@ -1,16 +1,20 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 import { LoginContext } from '../App';
 
 export default function Register() {
-    const {loggedIn,setLoggedIn} = useContext(LoginContext);
+    const {setLoggedIn} = useContext(LoginContext);
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const location = useLocation();
     const navigate = useNavigate();
-
+	useEffect(()=>{
+		localStorage.clear();
+		setLoggedIn(false);
+	},[setLoggedIn])
     function login(e) {
         e.preventDefault();
         const url = 'http://localhost:8000/api/token/';
@@ -96,7 +100,7 @@ export default function Register() {
                 </div>
             </div>
             <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                Login
+                Register
             </button>
         </form>
     );

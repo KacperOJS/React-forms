@@ -7,7 +7,7 @@ export default function Customers(){
 	const [customers,SetCustomers]=useState();
 	const [error, setError] = useState(false);
 	const [show,setShow] = useState(false);
-	const {loggedIn,setLoggedIn} = useContext(LoginContext);
+	const {setLoggedIn} = useContext(LoginContext);
 
 	function toggleshow(){
 		setShow(!show)
@@ -38,7 +38,7 @@ export default function Customers(){
 			console.error(error);
 			setError(true)
 		})
-	},[]);
+	},[location.pathname, navigate, setLoggedIn]);
 	function newcustomer(name,industry){
 		const data = {name:name,industry:industry};
 		fetch('http://localhost:8000/api/customers/',{

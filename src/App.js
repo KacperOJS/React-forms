@@ -1,6 +1,4 @@
-
 import './Main.css';
-
 import Header from'./components/Header';
 import Employees from './pages/Employees';
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
@@ -11,6 +9,7 @@ import Customer from './pages/Customer';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import { createContext, useEffect, useState } from 'react';
+import Register from './pages/Register';
 export const LoginContext = createContext();
 
 function App() {
@@ -56,6 +55,7 @@ function App() {
 				<Route path='/customers' element={<Customers/>}/>
 				<Route path='/customers/:id' element={<Customer/>}/>
 				<Route path='/login' element={<Login/>}/>
+				<Route path='/register' element={<Register/>}/>
 				<Route path='/404' element={<NotFound/>}/>
 				<Route path='/*' element={<NotFound/>}/>
 				

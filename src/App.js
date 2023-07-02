@@ -14,8 +14,8 @@ import { createContext, useState } from 'react';
 export const LoginContext = createContext();
 
 function App() {
-	// const [loggedIn ,setLoggedIn]=useState(localStorage.access ? true : false);
-	const [loggedIn ,setLoggedIn]=useState(false);
+	const [loggedIn ,setLoggedIn]=useState(localStorage.access ? true : false);
+	// const [loggedIn ,setLoggedIn]=useState(false);
   return (
 	<LoginContext.Provider value={{loggedIn,setLoggedIn}}>
 	<BrowserRouter>

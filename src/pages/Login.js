@@ -5,8 +5,8 @@ import { LoginContext } from '../App';
 
 export default function Login() {
     const {loggedIn,setLoggedIn} = useContext(LoginContext);
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     const location = useLocation();
     const navigate = useNavigate();

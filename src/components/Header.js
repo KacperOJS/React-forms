@@ -57,17 +57,22 @@ export default function Example(props) {
                         {item.name}
                       </NavLink>
                     ))}
-					 <NavLink
-                        to={ loggedIn ? '/logout' : '/login'}
-						className = "rounded-md px-3 py-2 text-sm font-medium no-underline bg-gray-900 text-white"
-                        // className={classNames(
-                        //   item.current ? 'no-underline bg-gray-900 text-white' : 'no-underline text-gray-300 hover:bg-gray-700 hover:text-white',
-                        //   'rounded-md px-3 py-2 text-sm font-medium'
-                        // )}
-                        
-                      >
-                        {loggedIn ? 'Logout': 'Login'}
-                      </NavLink>
+					{loggedIn ? 
+							<NavLink
+								to={'/login'}
+								onClick={()=>{
+									setLoggedIn(false);
+									localStorage.clear();
+								}}
+								className = "rounded-md px-3 py-2 text-sm font-medium no-underline bg-gray-900 text-white">
+								Logout
+							</NavLink> : 
+							<NavLink
+								to={'/login'}
+								className = "rounded-md px-3 py-2 text-sm font-medium no-underline bg-gray-900 text-white" >
+							Login
+							</NavLink>
+					}
                   </div>
                 </div>
               </div>

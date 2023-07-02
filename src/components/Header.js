@@ -8,7 +8,6 @@ const navigation = [
   { name: 'Employees', href: '/employees'},
   { name: 'Customers', href: '/customers'},
   { name: 'Dictionary', href: '/dictionary'},
-  { name: 'Definition', href: '/definition'},
 ]
 
 function classNames(...classes) {
@@ -16,7 +15,7 @@ function classNames(...classes) {
 }
 
 export default function Example(props) {
-	const {loggedIn} = useContext(LoginContext);
+	const {loggedIn,setLoggedIn} = useContext(LoginContext);
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -58,6 +57,17 @@ export default function Example(props) {
                         {item.name}
                       </NavLink>
                     ))}
+					 <NavLink
+                        to={ loggedIn ? '/logout' : '/login'}
+						className = "rounded-md px-3 py-2 text-sm font-medium no-underline bg-gray-900 text-white"
+                        // className={classNames(
+                        //   item.current ? 'no-underline bg-gray-900 text-white' : 'no-underline text-gray-300 hover:bg-gray-700 hover:text-white',
+                        //   'rounded-md px-3 py-2 text-sm font-medium'
+                        // )}
+                        
+                      >
+                        {loggedIn ? 'Logout': 'Login'}
+                      </NavLink>
                   </div>
                 </div>
               </div>
@@ -140,6 +150,17 @@ export default function Example(props) {
                   {item.name}
                 </Disclosure.Button>
               ))}
+			   <NavLink
+                        to={ loggedIn ? '/logout' : '/login'}
+						className = " block rounded-md px-3 py-2 text-base font-medium text-gray-300"
+                        // className={classNames(
+                        //   item.current ? 'no-underline bg-gray-900 text-white' : 'no-underline text-gray-300 hover:bg-gray-700 hover:text-white',
+                        //   'rounded-md px-3 py-2 text-sm font-medium'
+                        // )}
+                        
+                      >
+                        {loggedIn ? 'Logout': 'Login'}
+                      </NavLink>
             </div>
           </Disclosure.Panel>
 		<div className='bg-gray-300 min-h-screen'>{props.children}</div>  

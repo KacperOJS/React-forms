@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { LoginContext } from "../App";
 
 export default function Customer(){
+	const {loggedIn,setloggedIn} = useContext(LoginContext)
 	const [customer,setCustomer]=useState(); 
 	const [error,setError]=useState(false); 
 	const navigate = useNavigate();
@@ -25,7 +27,12 @@ export default function Customer(){
 			if (res.status === 404) {
 			  navigate('/404');
 			} else if (res.status === 401) {
-			  navigate('/login');
+			  setloggedIn(false)
+			  navigate('/login',{
+				state:{
+					previousUrl: location.pathname
+				}
+			  });
 			} else if (!res.ok) {
 			  throw new Error('Something went wrong try again');
 			}
